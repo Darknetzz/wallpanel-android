@@ -21,8 +21,7 @@ plugins {
     id 'kotlin-kapt' // Allows for Kotlin annotation processors
     //id 'androidx.navigation.safeargs.kotlin'
     //id 'dagger.hilt.android.plugin'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
+    // Google Services and Crashlytics applied conditionally below when google-services.json is present
 }
 
 def versionMajor = 0
@@ -221,6 +220,12 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestUtil 'androidx.test:orchestrator:1.4.1'
 
+}
+
+// Apply Google Services and Crashlytics only when google-services.json exists (e.g. from Firebase console)
+if (file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
 }
 
 // Removed: force "com.android.support:appcompat-v7" - project uses AndroidX only
