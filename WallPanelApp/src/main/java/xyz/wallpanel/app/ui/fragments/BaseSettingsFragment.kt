@@ -39,11 +39,15 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.
     @Inject
     lateinit var dialogUtils: DialogUtils
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // Set title bar
-        if ((activity as SettingsActivity).supportActionBar != null) {
-            (activity as SettingsActivity).supportActionBar!!.title = (getString(R.string.title_settings))
+    /** Override in subclasses to set fragment-specific title. Default: generic settings title. */
+    protected open fun getFragmentTitle(): Int = R.string.title_settings
+
+    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? SettingsActivity)?.supportActionBar?.let { bar ->
+            bar.setDisplayHomeAsUpEnabled(true)
+            bar.setDisplayShowHomeEnabled(true)
+            bar.title = getString(getFragmentTitle())
         }
     }
 
@@ -51,17 +55,17 @@ open class BaseSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        //na-da
+        // Override in subclasses if needed
     }
 
     override fun onResume() {
         super.onResume()
-        preferenceScreen.sharedPreferences!!.registerOnSharedPreferenceChangeListener(this)
+        preferenceScreen?.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onPause() {
         super.onPause()
-        preferenceScreen.sharedPreferences!!.unregisterOnSharedPreferenceChangeListener(this)
+        preferenceScreen?.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     private val bindPreferenceSummaryToValueListener = Preference.OnPreferenceChangeListener { preference, value ->

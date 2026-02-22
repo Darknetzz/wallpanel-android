@@ -64,7 +64,7 @@ class MQTT3Service(
         try {
             close()
         } catch (e: Mqtt3MessageException) {
-            // empty
+            Timber.d(e, "close during reconfigure")
         }
         this.listener = listener
         this.context = context

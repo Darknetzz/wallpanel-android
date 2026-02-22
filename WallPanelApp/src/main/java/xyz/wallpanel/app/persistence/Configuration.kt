@@ -33,21 +33,17 @@ constructor(private val context: Context, private val sharedPreferences: SharedP
         get() = getBoolPref(R.string.key_setting_app_preventsleep,
                 R.string.default_setting_app_preventsleep)
 
-    // TODO we have to migrate this due to an error when entering codes with leading 0 value
+    /** Settings access code (string allows leading zeros). Legacy int value migrated once. */
     var settingsCode: String
         get() {
-            val prev = this.sharedPreferences.getInt(PREF_SETTINGS_CODE, 0)
-            val cur = this.sharedPreferences.getString(PREF_SETTINGS_CODE_STRING, "1234").orEmpty()
-            return if(prev > 0) {
-                val preStr = String.format("%04d", prev) // pad to 4 with 0's leading
-                this.sharedPreferences.edit().putInt(PREF_SETTINGS_CODE, 0).apply()
-                this.sharedPreferences.edit().putString(PREF_SETTINGS_CODE_STRING, preStr).apply()
-                prev.toString()
-            } else {
-                cur
+            val prev = sharedPreferences.getInt(PREF_SETTINGS_CODE, -1)
+            if (prev >= 0) {
+                val preStr = String.format("%04d", prev.coerceAtLeast(0))
+                sharedPreferences.edit().putInt(PREF_SETTINGS_CODE, -1).putString(PREF_SETTINGS_CODE_STRING, preStr).apply()
             }
+            return sharedPreferences.getString(PREF_SETTINGS_CODE_STRING, "1234").orEmpty()
         }
-        set(value) = this.sharedPreferences.edit().putString(PREF_SETTINGS_CODE_STRING, value).apply()
+        set(value) = sharedPreferences.edit().putString(PREF_SETTINGS_CODE_STRING, value).apply()
 
     var fullScreen: Boolean
         get() = this.sharedPreferences.getBoolean(PREF_FULL_SCREEN, true)
@@ -250,8 +246,15 @@ constructor(private val context: Context, private val sharedPreferences: SharedP
                 R.string.default_setting_sensors_value)
 
     val hardwareAccelerated: Boolean
-        get() = getBoolPref(R.string.key_hadware_accelerated_enabled,
-                R.string.default_hardware_accelerated_value)
+        get() {
+            // Migrate from legacy typo key
+            val legacyKey = context.getString(R.string.key_hadware_accelerated_enabled)
+            val key = context.getString(R.string.key_hardware_accelerated_enabled)
+            if (sharedPreferences.contains(legacyKey) && !sharedPreferences.contains(key)) {
+                sharedPreferences.edit().putBoolean(key, sharedPreferences.getBoolean(legacyKey, true)).remove(legacyKey).apply()
+            }
+            return getBoolPref(R.string.key_hardware_accelerated_enabled, R.string.default_hardware_accelerated_value)
+        }
 
     var browserUserAgent: String
         get() = getStringPref(R.string.key_setting_browser_user_agent,

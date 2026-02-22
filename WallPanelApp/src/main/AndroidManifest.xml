@@ -13,9 +13,11 @@
     <uses-permission android:name="android.permission.MICROPHONE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- Permission to change the screen brightness -->
+    <!-- WRITE_SETTINGS: Required to change screen brightness programmatically (system setting). -->
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" /> <!-- Optional supported features -->
+        tools:ignore="ProtectedPermissions" />
+    <!-- Optional supported features -->
     <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
     <uses-feature
         android:name="android.hardware.audio.low_latency"
@@ -45,10 +47,9 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_config"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <!-- android:networkSecurityConfig="@xml/network_config"-->
         <!--<activity android:name=".ui.activities.TestActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

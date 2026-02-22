@@ -73,7 +73,7 @@
 
         <SwitchPreference
             android:defaultValue="@string/default_hardware_accelerated_value"
-            android:key="@string/key_hadware_accelerated_enabled"
+            android:key="@string/key_hardware_accelerated_enabled"
             android:title="@string/title_hardware_acceleration"
             android:summary="@string/summary_hardware_acceleration"/>
 

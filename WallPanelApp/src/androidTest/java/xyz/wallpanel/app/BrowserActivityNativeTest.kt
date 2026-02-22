@@ -16,26 +16,28 @@
 
 package xyz.wallpanel.app
 
-import xyz.wallpanel.app.utils.BrowserUtils
-import junit.framework.TestCase
-
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import xyz.wallpanel.app.utils.BrowserUtils
 
-class BrowserActivityNativeTest : TestCase() {
+class BrowserActivityNativeTest {
+
+    private lateinit var browserUtils: BrowserUtils
 
     @Before
-    public override fun setUp() {
+    fun setUp() {
+        browserUtils = BrowserUtils()
     }
 
     @After
-    public override fun tearDown() {
+    fun tearDown() {
     }
 
     @Test
     fun testParseIntentMethod() {
-        val browserUtils =  BrowserUtils()
         var intent = browserUtils.parseIntent("intent:#Intent;launchFlags=0x10000000;component=com.google.android.apps.maps/com.google.android.maps.MapsActivity;end")
         assertNotNull(intent)
         assertEquals("com.google.android.maps.MapsActivity", intent?.component?.className)

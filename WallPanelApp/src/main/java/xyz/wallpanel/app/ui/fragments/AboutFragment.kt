@@ -52,28 +52,13 @@ class AboutFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // Set title bar
-        if((activity as SettingsActivity).supportActionBar != null) {
-            (activity as SettingsActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            (activity as SettingsActivity).supportActionBar!!.setDisplayShowHomeEnabled(true)
-            (activity as SettingsActivity).supportActionBar!!.title = (getString(R.string.pref_about_title))
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == android.R.id.home) {
-            view?.let { Navigation.findNavController(it).navigate(R.id.settings_action) }
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        (activity as? SettingsActivity)?.supportActionBar?.let { bar ->
+            bar.setDisplayHomeAsUpEnabled(true)
+            bar.setDisplayShowHomeEnabled(true)
+            bar.title = getString(R.string.pref_about_title)
+        }
         try {
             val packageInfo = requireActivity().packageManager.getPackageInfo(requireActivity().packageName, 0)
             versionNumber = " v" + packageInfo.versionName
@@ -87,6 +72,15 @@ class AboutFragment : Fragment() {
         binding.githubButton.setOnClickListener { showGitHub() }
         binding.supportButton.setOnClickListener { showSupport() }
         binding.privacyPolicyButton.setOnClickListener { showPrivacyPolicy() }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == android.R.id.home) {
+            view?.let { Navigation.findNavController(it).navigate(R.id.settings_action) }
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun rate() {

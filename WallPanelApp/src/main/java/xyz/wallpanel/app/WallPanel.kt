@@ -66,8 +66,8 @@ class WallPanel : DaggerApplication() {
             )
             StrictMode.setVmPolicy(
                 VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
                     .detectLeakedClosableObjects()
+                    .detectLeakedRegistrationObjects()
                     .penaltyLog()
                     .build()
             )

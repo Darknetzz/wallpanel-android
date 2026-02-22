@@ -50,6 +50,10 @@ Rendering issues with the webpage you are trying to view. Android applications u
 
 You can either side load the application to your device from the [release section](https://github.com/thetimewalker/wallpanel-android/releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app). The application will open to the welcome page with a link to update the settings. Open the settings by clicking the dashboard floating icon. In the settings, set your web page or home automation platform url. Also set the code for accessing the settings, the default is 1234.
 
+## Development
+
+The project can be built from the command line with `./gradlew assembleProdDebug` (or `gradlew.bat assembleProdDebug` on Windows). **Use JDK 11 or 17** to run Gradle; Gradle 7.4 does not support JDK 21+ (e.g. "Unsupported class file major version 69" means the JDK is too new). Use the `prod` flavor for a build that does not require `local.properties` secrets. For the `dev` flavor, optional entries in `local.properties` (e.g. `code`, `hassUrl`, `broker`) are used as BuildConfig defaults; the app runs without them (defaults are used).
+
 ## Building the Application
 
 To build the application locally, checkout the code from Github and load the project into Android Studio with Android API 31 or higher. You will need to remove the Firebase dependency in the build.gradle file, this is not required. Remove the following dependencies:

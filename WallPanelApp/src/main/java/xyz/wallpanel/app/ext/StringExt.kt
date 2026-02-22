@@ -1,7 +1,6 @@
 package xyz.wallpanel.app.ext
 
+private const val ARRAY_STRING_SEPARATOR = ","
 
-fun String.convertStringToArray(str: String): Array<String> {
-    val strSeparator = ","
-    return str.split(strSeparator).toTypedArray()
-}
+fun String.convertStringToArray(): Array<String> =
+    split(ARRAY_STRING_SEPARATOR).toTypedArray()

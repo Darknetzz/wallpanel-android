@@ -43,14 +43,7 @@ class SensorsSettingsFragment : BaseSettingsFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if((activity as SettingsActivity).supportActionBar != null) {
-            (activity as SettingsActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            (activity as SettingsActivity).supportActionBar!!.setDisplayShowHomeEnabled(true)
-            (activity as SettingsActivity).supportActionBar!!.title = (getString(R.string.title_sensor_settings))
-        }
-    }
+    override fun getFragmentTitle(): Int = R.string.title_sensor_settings
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

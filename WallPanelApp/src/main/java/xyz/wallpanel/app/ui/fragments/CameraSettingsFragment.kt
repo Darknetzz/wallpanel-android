@@ -62,18 +62,7 @@ class CameraSettingsFragment : BaseSettingsFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // Set title bar
-        if (activity is SettingsActivity) {
-            val actionBar = (activity as SettingsActivity).supportActionBar
-            with(actionBar) {
-                this?.setDisplayHomeAsUpEnabled(true)
-                this?.setDisplayShowHomeEnabled(true)
-                this?.title = (getString(R.string.title_camera_settings))
-            }
-        }
-    }
+    override fun getFragmentTitle(): Int = R.string.title_camera_settings
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
