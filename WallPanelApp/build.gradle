@@ -16,7 +16,6 @@
 
 plugins {
     id 'com.android.application'
-    id 'com.github.sgtsilvio.gradle.android-retrofix'
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt' // Allows for Kotlin annotation processors
@@ -55,12 +54,11 @@ android {
         generateStubs = true
         correctErrorTypes = true
     }
-    compileSdkVersion 33
-    buildToolsVersion "30.0.3"
+    compileSdk 34
     defaultConfig {
         applicationId "xyz.wallpanel.app"
         minSdkVersion 19
-        targetSdkVersion 33
+        targetSdk 34
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
         multiDexEnabled true
@@ -84,6 +82,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
     flavorDimensions "default"
@@ -121,10 +120,10 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += ['META-INF/INDEX.LIST', 'META-INF/io.netty.versions.properties']
         }

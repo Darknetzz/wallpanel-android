@@ -52,7 +52,14 @@ You can either side load the application to your device from the [release sectio
 
 ## Development
 
-The project can be built from the command line with `./gradlew assembleProdDebug` (or `gradlew.bat assembleProdDebug` on Windows). **Use JDK 11 or 17** to run Gradle; Gradle 7.4 does not support JDK 21+ (e.g. "Unsupported class file major version 69" means the JDK is too new). Use the `prod` flavor for a build that does not require `local.properties` secrets. For the `dev` flavor, optional entries in `local.properties` (e.g. `code`, `hassUrl`, `broker`) are used as BuildConfig defaults; the app runs without them (defaults are used).
+The project can be built from the command line with `./gradlew assembleProdDebug` (or `gradlew.bat assembleProdDebug` on Windows).
+
+**JDK:** The project uses **Gradle 9.1.0**, which supports **JDK 17 through JDK 25** (including the latest OpenJDK 25). You can use your system’s latest JDK.
+
+**Android SDK:** Set `ANDROID_HOME` to your Android SDK root, or create `local.properties` in the project root with:
+`sdk.dir=C\:\\path\\to\\Android\\sdk` (Windows) or `sdk.dir=/path/to/Android/sdk` (macOS/Linux).
+
+Use the `prod` flavor for a build that does not require `local.properties` secrets. For the `dev` flavor, optional entries in `local.properties` (e.g. `code`, `hassUrl`, `broker`) are used as BuildConfig defaults; the app runs without them (defaults are used).
 
 ## Building the Application
 
