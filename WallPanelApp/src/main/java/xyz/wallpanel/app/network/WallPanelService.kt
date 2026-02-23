@@ -184,8 +184,9 @@ class WallPanelService : LifecycleService(), MQTTModule.MQTTListener {
         localBroadCastManager = LocalBroadcastManager.getInstance(this)
         localBroadCastManager?.registerReceiver(mBroadcastReceiver, filter)
 
-        // Defer heavy init so onCreate returns quickly and the app stays responsive on launch
-        mainHandler.post(::runDeferredInit)
+        // Defer heavy init so the launcher activity can draw its first frame and dismiss the
+        // Android 12+ system splash (grey screen with app icon). Otherwise splash stays visible.
+        mainHandler.postDelayed(::runDeferredInit, 1200)
     }
 
     private fun runDeferredInit() {

@@ -73,6 +73,13 @@ class BrowserActivityNative : BaseBrowserActivity(), LifecycleObserver, WebClien
         initWebPageLoad()
     }
 
+    private val progressHideTimeoutRunnable = Runnable {
+        if (binding.progressView.visibility == View.VISIBLE) {
+            Timber.w("Progress hide timeout: hiding progress so user can interact")
+            binding.progressView.visibility = View.GONE
+        }
+    }
+
     // To save current index
     private var playlistIndex = 0
 
@@ -176,6 +183,7 @@ class BrowserActivityNative : BaseBrowserActivity(), LifecycleObserver, WebClien
 
     override fun onDestroy() {
         super.onDestroy()
+        reconnectionHandler.removeCallbacks(progressHideTimeoutRunnable)
         codeBottomSheet?.dismiss()
     }
 
@@ -258,6 +266,7 @@ class BrowserActivityNative : BaseBrowserActivity(), LifecycleObserver, WebClien
     }
 
     override fun complete() {
+        reconnectionHandler.removeCallbacks(progressHideTimeoutRunnable)
         binding.progressView.visibility = View.GONE
         if (binding.swipeContainer != null && binding.swipeContainer.isRefreshing && configuration.browserRefresh) {
             binding.swipeContainer.isRefreshing = false
@@ -388,8 +397,10 @@ class BrowserActivityNative : BaseBrowserActivity(), LifecycleObserver, WebClien
     }
 
     private fun initWebPageLoad() {
+        reconnectionHandler.removeCallbacks(progressHideTimeoutRunnable)
         binding.progressView.visibility = View.VISIBLE
         webView.visibility = View.VISIBLE
+        reconnectionHandler.postDelayed(progressHideTimeoutRunnable, 20_000L)
         configureWebSettings(configuration.browserUserAgent)
         if (zoomLevel != 0.0f) {
             val zoomPercent = (zoomLevel * 100).toInt()
