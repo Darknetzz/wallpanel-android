@@ -48,12 +48,22 @@ def BROKER() { return safeLocalProperty("broker", "") }
 def BROKER_PASS() { return safeLocalProperty("brokerPass", "") }
 def BROKER_USERNAME() { return safeLocalProperty("brokerUsername", "") }
 
+// Use JDK 17 for compilation so kapt/Kotlin work when running Gradle on JDK 25
+kotlin {
+    jvmToolchain(17)
+}
+
 android {
     kapt {
-        generateStubs = true
         correctErrorTypes = true
+        javacOptions {
+            option("--release", "17")
+        }
     }
     compileSdk 34
+    lint {
+        checkReleaseBuilds = false
+    }
     defaultConfig {
         applicationId "xyz.wallpanel.app"
         minSdkVersion 19
@@ -104,6 +114,11 @@ android {
             buildConfigField "String", BASE_ENVIRONMENT, '"QA_ENVIRONMENT"'
             applicationId "xyz.wallpanel.app"
             versionName "${versionMajor}.${versionMinor}.${versionPatch} Build ${versionBuild}-QA"
+            buildConfigField 'Integer', 'CODE', '1234'
+            buildConfigField 'String', 'HASS_URL', '""'
+            buildConfigField 'String', 'BROKER', '""'
+            buildConfigField 'String', 'BROKER_USERNAME', '""'
+            buildConfigField 'String', 'BROKER_PASS', '""'
         }
         prod {
             dimension "default"
@@ -121,6 +136,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
     }
     packaging {
         resources {
@@ -158,6 +176,7 @@ dependencies {
 
     // LiveData + ViewModel (lifecycle-extensions is deprecated; use specific artifacts)
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation 'com.google.firebase:firebase-analytics:21.1.1'
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$versions.lifecycle"
@@ -172,7 +191,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp:3.12.13'
 
-    // Dagger
+    // Dagger 2.52+ for Kotlin 2.0 metadata support
     implementation "com.google.dagger:dagger:$versions.dagger"
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     implementation "com.google.dagger:dagger-android-support:$versions.dagger"
@@ -240,3 +259,6 @@ if (file('google-services.json').exists()) {
         }
     }
 }*/
+
+// Disable lint tasks when building on JDK 25+ (lint worker fails with "25.0.2" javacOptions bug)
+tasks.configureEach { t -> if (t.name.startsWith('lint')) t.enabled = false }

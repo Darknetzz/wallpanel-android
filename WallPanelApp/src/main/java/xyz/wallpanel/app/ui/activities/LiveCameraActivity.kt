@@ -18,7 +18,6 @@ package xyz.wallpanel.app.ui.activities
 
 import android.Manifest
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -84,7 +83,7 @@ class LiveCameraActivity : DaggerAppCompatActivity() {
         if(configuration.hardwareAccelerated && Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             window.setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED)
         }
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetectionViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(DetectionViewModel::class.java)
 
         // Check for the camera permission before accessing the camera.
         val rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)

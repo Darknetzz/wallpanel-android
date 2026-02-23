@@ -244,7 +244,7 @@ class CameraSettingsFragment : BaseSettingsFragment() {
         startActivity(Intent(c, LiveCameraActivity::class.java))
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         when (key) {
             PREF_CAMERA_ENABLED -> {
                 val cameraEnabled = cameraPreference?.isChecked

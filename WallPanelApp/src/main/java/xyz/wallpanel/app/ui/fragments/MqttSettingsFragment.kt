@@ -122,7 +122,7 @@ class MqttSettingsFragment : BaseSettingsFragment(), SharedPreferences.OnSharedP
 
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         when (key) {
             PREF_TLS_CONNECTION -> {
                 val checked = sslPreference.isChecked

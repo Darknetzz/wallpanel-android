@@ -309,7 +309,7 @@ class SettingsFragment : BaseSettingsFragment() {
         }
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         when (key) {
             PREF_SCREEN_BRIGHTNESS -> {
                 val useBright = screenBrightness?.isChecked
