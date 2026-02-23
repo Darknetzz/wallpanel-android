@@ -1,12 +1,16 @@
-# ARCHIVED
-
-This project is now archived. As the maintainer of this project since 2022, I unfortunately didn't really live up to the standards to properly maintain this project. When taking over as maintainer, I was at the time motivated to work on it. However, in the coming years I have realized that with not having as much deep knowledge at native development, I wasn't able to work on it how I imagined to do. Additionally, I had more trouble really motivating myself, taking the necesssary free time and wrapping around developing this app. I then realized lately, that I personally haven't been using this app as extensively as I thought I would since I ended up only having one wall panel - which uses the Home Assistant companion app for this task. After ignoring issues and notifications all around, I've decided to archive this repository instead of disappointing additional people.
-
-If anybody else wants to step up on continuing development and maintaining this project, you can contact me in the e-mail address inside the app and we can organize the transfer of the project, transfer for Google Play app, its signing keys, domain, and everything in-between.
-
-Thank you!
-
 # WallPanel
+
+This is a **community-maintained fork** of [TheTimeWalker/wallpanel-android](https://github.com/thetimewalker/wallpanel-android). The original repository was [archived in May 2025](https://github.com/thetimewalker/wallpanel-android); this fork continues development so the app remains buildable, up to date, and usable for web-based dashboards and home automation.
+
+## Why this fork?
+
+- **Actively maintained** — The original project is read-only; this fork accepts issues and contributions.
+- **Modern build tooling** — Updated to Gradle 9.x, Kotlin 2.x, and current Android Gradle Plugin; supports JDK 17–25 and Android SDK 34.
+- **Easier to build** — Google Services and Firebase Crashlytics are applied only when `google-services.json` is present, so you can build and run without Firebase or Google Play Services.
+- **Better dev experience** — Product flavors: use `prod` for release builds that need no secrets, or `dev` with optional `local.properties` (e.g. `code`, `hassUrl`, `broker`) for default settings during development.
+- **Build and code quality** — Dagger and Kotlin toolchain updates, kapt fixes, and clearer build/docs so the project compiles reliably on current JDKs and IDEs.
+
+---
 
 WallPanel is an Android application for Web Based Dashboards and Home Automation Platforms. You can either sideload the application to your Android device from the [release section](https://github.com/thetimewalker/wallpanel-android/releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app).
 
@@ -63,7 +67,9 @@ Use the `prod` flavor for a build that does not require `local.properties` secre
 
 ## Building the Application
 
-To build the application locally, checkout the code from Github and load the project into Android Studio with Android API 31 or higher. You will need to remove the Firebase dependency in the build.gradle file, this is not required. Remove the following dependencies:
+To build the application locally, checkout the code from Github and load the project into Android Studio with Android API 31 or higher.
+
+**In this fork:** Google Services and Firebase are applied only when `google-services.json` is present. Without that file, the project builds without Firebase/Crashlytics—no need to remove dependencies manually. If you do want to use Firebase, add `google-services.json` and the following are applied automatically. Otherwise, you can remove these if you prefer a clean build without Google Services:
 
 ```
 apply plugin: 'com.google.firebase.crashlytics'
