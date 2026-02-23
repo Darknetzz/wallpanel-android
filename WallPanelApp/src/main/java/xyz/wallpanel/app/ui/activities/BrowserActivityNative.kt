@@ -28,6 +28,7 @@ import android.view.*
 import android.webkit.*
 import android.widget.Button
 import android.widget.Toast
+import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -257,6 +258,7 @@ class BrowserActivityNative : BaseBrowserActivity(), LifecycleObserver, WebClien
     }
 
     override fun complete() {
+        binding.progressView.visibility = View.GONE
         if (binding.swipeContainer != null && binding.swipeContainer.isRefreshing && configuration.browserRefresh) {
             binding.swipeContainer.isRefreshing = false
         }
@@ -278,6 +280,36 @@ class BrowserActivityNative : BaseBrowserActivity(), LifecycleObserver, WebClien
 
     override fun certPermissionsShown(): Boolean {
         return certPermissionsShown
+    }
+
+    override fun onWebViewRenderProcessGone(crashedWebView: WebView) {
+        val parent = crashedWebView.parent as? ViewGroup ?: return
+        parent.removeView(crashedWebView)
+        crashedWebView.destroy()
+
+        val newWebView = WebView(this).apply {
+            id = R.id.activity_browser_webview_native
+            layoutParams = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+            )
+        }
+        parent.addView(newWebView)
+        webView = newWebView
+        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        configureWebChromeClient()
+        configureWebViewClient()
+        webView.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    resetScreen()
+                    if (!v.hasFocus()) v.requestFocus()
+                }
+                MotionEvent.ACTION_UP -> if (!v.hasFocus()) v.requestFocus()
+            }
+            false
+        }
+        initWebPageLoad()
     }
 
     override fun stopReloadDelay() {
@@ -356,18 +388,16 @@ class BrowserActivityNative : BaseBrowserActivity(), LifecycleObserver, WebClien
     }
 
     private fun initWebPageLoad() {
-        binding.progressView.visibility = View.GONE
+        binding.progressView.visibility = View.VISIBLE
         webView.visibility = View.VISIBLE
-        // set user agent
         configureWebSettings(configuration.browserUserAgent)
-        // set zoom level
         if (zoomLevel != 0.0f) {
             val zoomPercent = (zoomLevel * 100).toInt()
             webView.setInitialScale(zoomPercent)
         }
-        // check if we are using playlist
-        if (configuration.appLaunchUrl.lines().size == 1) {
-            loadWebViewUrl(configuration.appLaunchUrl)
+        val launchUrl = configuration.appLaunchUrl.ifBlank { getString(R.string.default_setting_app_launchurl) }
+        if (launchUrl.lines().size == 1) {
+            loadWebViewUrl(launchUrl)
         } else {
             startPlaylist()
         }
