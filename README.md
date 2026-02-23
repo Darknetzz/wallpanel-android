@@ -103,5 +103,6 @@ All are welcome to propose a feature request, report or bug, or contribute to th
 
 ## Special Thanks
 
+- [TheTimeWalker](https://github.com/TheTimeWalker) for maintaining [wallpanel-android](https://github.com/TheTimeWalker/wallpanel-android) from 2022 until its archive in May 2025.
 - [ThanksMister](https://github.com/thanksmister) for maintaining and continued development of [WallPanel](https://github.com/thanksmister/wallpanel-android/) for multiple years.
 - [quadportnick](https://github.com/quadportnick) for starting [the original WallPanel (formerly HomeDash)](https://github.com/WallPanel-Project/wallpanel-android).
