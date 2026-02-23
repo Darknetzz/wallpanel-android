@@ -12,7 +12,7 @@ This is a **community-maintained fork** of [TheTimeWalker/wallpanel-android](htt
 
 ---
 
-WallPanel is an Android application for Web Based Dashboards and Home Automation Platforms. You can either sideload the application to your Android device from the [release section](https://github.com/thetimewalker/wallpanel-android/releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app).
+WallPanel is an Android application for Web Based Dashboards and Home Automation Platforms. You can either sideload the application to your Android device from the [release section](releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app).
 
 <a href='https://play.google.com/store/apps/details?id=xyz.wallpanel.app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width='240'/></a>
 
@@ -24,7 +24,7 @@ WallPanel is an Android application for Web Based Dashboards and Home Automation
 
 ## Support
 
-For issues, feature requests, use the [Github issues tracker](https://github.com/thetimewalker/wallpanel-android/issues). For examples and to learn how to use each feature, visit [WallPanel Documentation](https://wallpanel.xyz/).
+For issues and feature requests, use this repo’s [issues](issues). For examples and usage, see this repository and the [original project](https://github.com/thetimewalker/wallpanel-android) (archived).
 
 ### Common Issues
 
@@ -52,7 +52,7 @@ Rendering issues with the webpage you are trying to view. Android applications u
 
 ## Quick Start
 
-You can either side load the application to your device from the [release section](https://github.com/thetimewalker/wallpanel-android/releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app). The application will open to the welcome page with a link to update the settings. Open the settings by clicking the dashboard floating icon. In the settings, set your web page or home automation platform url. Also set the code for accessing the settings, the default is 1234.
+You can either side load the application to your device from the [release section](releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app). The application will open to the welcome page with a link to update the settings. Open the settings by clicking the dashboard floating icon. In the settings, set your web page or home automation platform url. Also set the code for accessing the settings, the default is 1234.
 
 ## Development
 
@@ -99,7 +99,7 @@ Setting WallPanel as the default Home application will always load this applicat
 
 ## Contribution
 
-All are welcome to propose a feature request, report or bug, or contribute to the project by updating examples or with a PR for new features. Thanks to all the [contributes](https://github.com/thetimewalker/wallpanel-android/graphs/contributors) who have contributed to the project!
+All are welcome to propose a feature request, report or bug, or contribute to the project by updating examples or with a PR for new features. Thanks to all the [contributors](graphs/contributors) who have contributed to the project!
 
 ## Special Thanks
 
