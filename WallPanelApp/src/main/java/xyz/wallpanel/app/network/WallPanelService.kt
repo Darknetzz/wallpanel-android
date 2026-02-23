@@ -139,6 +139,8 @@ class WallPanelService : LifecycleService(), MQTTModule.MQTTListener {
             get() = this@WallPanelService
     }
 
+    private val mainHandler = Handler(Looper.getMainLooper())
+
     override fun onCreate() {
         super.onCreate()
 
@@ -173,14 +175,6 @@ class WallPanelService : LifecycleService(), MQTTModule.MQTTListener {
 
         this.appLaunchUrl = configuration.appLaunchUrl
 
-        configureMqtt()
-        configurePowerOptions()
-        configureCamera()
-        startHttp()
-        configureAudioPlayer()
-        configureTextToSpeech()
-        startSensors()
-
         val filter = IntentFilter()
         filter.addAction(BROADCAST_EVENT_URL_CHANGE)
         filter.addAction(BROADCAST_EVENT_SCREEN_TOUCH)
@@ -189,6 +183,19 @@ class WallPanelService : LifecycleService(), MQTTModule.MQTTListener {
         filter.addAction(Intent.ACTION_USER_PRESENT)
         localBroadCastManager = LocalBroadcastManager.getInstance(this)
         localBroadCastManager?.registerReceiver(mBroadcastReceiver, filter)
+
+        // Defer heavy init so onCreate returns quickly and the app stays responsive on launch
+        mainHandler.post(::runDeferredInit)
+    }
+
+    private fun runDeferredInit() {
+        configureMqtt()
+        configurePowerOptions()
+        configureCamera()
+        startHttp()
+        configureAudioPlayer()
+        configureTextToSpeech()
+        startSensors()
     }
 
     override fun onDestroy() {
