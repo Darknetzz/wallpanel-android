@@ -1,6 +1,7 @@
 # WallPanel
 
-> **⚠️ Warning:** This fork is **not yet fully working**. Some features may be unfinished or unstable. Use at your own risk and follow progress [in issues](issues) or the project activity.
+> [!WARNING]
+> This fork is **not yet fully working**. Some features may be unfinished or unstable. Use at your own risk and follow progress [in issues](issues) or the project activity.
 
 
 This is a **community-maintained fork** of [TheTimeWalker/wallpanel-android](https://github.com/thetimewalker/wallpanel-android). The original repository was [archived in May 2025](https://github.com/thetimewalker/wallpanel-android); this fork continues development so the app remains buildable, up to date, and usable for web-based dashboards and home automation.
