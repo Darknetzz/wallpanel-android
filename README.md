@@ -1,24 +1,26 @@
 # WallPanel
 
-> [!WARNING]
-> This fork is **not yet fully working**. Some features may be unfinished or unstable. Use at your own risk and follow progress [in issues](issues) or the project activity.
+> [!IMPORTANT]
+> **This repository is no longer actively maintained.** For continued development, fixes, and releases, use **[kmbrimble/wallpanel-android](https://github.com/kmbrimble/wallpanel-android)** — a fork of this project with substantial further work (Hilt, KSP, WebView/DuraSpeed fixes, signed sideload builds, and more).
 
+This was a short-lived community fork of [TheTimeWalker/wallpanel-android](https://github.com/thetimewalker/wallpanel-android) (archived May 2025). It modernised the build toolchain so the app could still be compiled on current JDKs and Android tooling; [kmbrimble](https://github.com/kmbrimble/wallpanel-android) then took that base further and is the recommended place for new users and contributions.
 
-This is a **community-maintained fork** of [TheTimeWalker/wallpanel-android](https://github.com/thetimewalker/wallpanel-android). The original repository was [archived in May 2025](https://github.com/thetimewalker/wallpanel-android); this fork continues development so the app remains buildable, up to date, and usable for web-based dashboards and home automation.
+## What this fork did
 
-## Why this fork?
-
-- **Actively maintained** — The original project is read-only; this fork accepts issues and contributions.
 - **Modern build tooling** — Updated to Gradle 9.x, Kotlin 2.x, and current Android Gradle Plugin; supports JDK 17–25 and Android SDK 34.
-- **Easier to build** — Google Services and Firebase Crashlytics are applied only when `google-services.json` is present, so you can build and run without Firebase or Google Play Services.
-- **Better dev experience** — Product flavors: use `prod` for release builds that need no secrets, or `dev` with optional `local.properties` (e.g. `code`, `hassUrl`, `broker`) for default settings during development.
-- **Build and code quality** — Dagger and Kotlin toolchain updates, kapt fixes, and clearer build/docs so the project compiles reliably on current JDKs and IDEs.
+- **Easier to build** — Google Services and Firebase Crashlytics applied only when `google-services.json` is present.
+- **Dev flavors** — `prod` for release builds without secrets; `dev` with optional `local.properties` defaults.
+- **Build/code quality** — Dagger and Kotlin toolchain updates, kapt fixes, WebView render-process recovery, deferred service init.
+
+For current features, install instructions, and releases, see [kmbrimble/wallpanel-android](https://github.com/kmbrimble/wallpanel-android).
 
 ---
 
-WallPanel is an Android application for Web Based Dashboards and Home Automation Platforms. You can either sideload the application to your Android device from the [release section](releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app).
+WallPanel is an Android application for Web Based Dashboards and Home Automation Platforms. The Play Store listing still belongs to the archived upstream project:
 
 <a href='https://play.google.com/store/apps/details?id=xyz.wallpanel.app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width='240'/></a>
+
+Prefer sideloading a build from [kmbrimble’s releases](https://github.com/kmbrimble/wallpanel-android/releases) if you want the actively maintained fork (separate application id, installs alongside the Play Store build).
 
 ## Screenshots
 
@@ -28,7 +30,7 @@ WallPanel is an Android application for Web Based Dashboards and Home Automation
 
 ## Support
 
-For issues and feature requests, use this repo’s [issues](issues). For examples and usage, see this repository and the [original project](https://github.com/thetimewalker/wallpanel-android) (archived).
+This repo is not accepting new work. Prefer issues and PRs at [kmbrimble/wallpanel-android](https://github.com/kmbrimble/wallpanel-android). Historical context remains in the [original archived project](https://github.com/thetimewalker/wallpanel-android).
 
 ### Common Issues
 
@@ -56,7 +58,7 @@ Rendering issues with the webpage you are trying to view. Android applications u
 
 ## Quick Start
 
-You can either side load the application to your device from the [release section](releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app). The application will open to the welcome page with a link to update the settings. Open the settings by clicking the dashboard floating icon. In the settings, set your web page or home automation platform url. Also set the code for accessing the settings, the default is 1234.
+For current installs, follow [kmbrimble/wallpanel-android](https://github.com/kmbrimble/wallpanel-android). Otherwise you can side load from this repo’s [release section](releases) or install from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app). Open settings via the dashboard floating icon, set your dashboard URL, and set the settings code (default `1234`).
 
 ## Development
 
@@ -103,10 +105,11 @@ Setting WallPanel as the default Home application will always load this applicat
 
 ## Contribution
 
-All are welcome to propose a feature request, report or bug, or contribute to the project by updating examples or with a PR for new features. Thanks to all the [contributors](graphs/contributors) who have contributed to the project!
+This repository is unmaintained. Please open issues and PRs against [kmbrimble/wallpanel-android](https://github.com/kmbrimble/wallpanel-android). Thanks to all who [contributed here](graphs/contributors).
 
 ## Special Thanks
 
+- [kmbrimble](https://github.com/kmbrimble) for continuing development in [kmbrimble/wallpanel-android](https://github.com/kmbrimble/wallpanel-android) — the recommended active fork.
 - [TheTimeWalker](https://github.com/TheTimeWalker) for maintaining [wallpanel-android](https://github.com/TheTimeWalker/wallpanel-android) from 2022 until its archive in May 2025.
 - [ThanksMister](https://github.com/thanksmister) for maintaining and continued development of [WallPanel](https://github.com/thanksmister/wallpanel-android/) for multiple years.
 - [quadportnick](https://github.com/quadportnick) for starting [the original WallPanel (formerly HomeDash)](https://github.com/WallPanel-Project/wallpanel-android).
